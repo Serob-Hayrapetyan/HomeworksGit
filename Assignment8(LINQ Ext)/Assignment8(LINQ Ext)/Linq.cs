@@ -13,6 +13,10 @@ namespace Assignment8_LINQ_Ext_
     {
         public static IEnumerable<TResult> SelectExt<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
+            if (source == null || selector == null)
+            {
+                throw new NullReferenceException();
+            }
             foreach (var item in source)
             {
                 yield return selector(item);
