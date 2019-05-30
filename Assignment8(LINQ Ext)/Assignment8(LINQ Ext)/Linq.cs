@@ -13,20 +13,17 @@ namespace Assignment8_LINQ_Ext_
     {
         public static IEnumerable<TResult> SelectExt<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
-            if (source == null || selector == null)
+            foreach (var item in source)
             {
-                //throw Exception;  ??CompileTime error
+                yield return selector(item);
             }
-
-            var elements = source.Select(selector);
-            return elements;
         }
 
         public static IEnumerable<TSource> WhereExt<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             if (source == null || predicate == null)
             {
-                //throw Exception;  ??CompileTime error
+                throw new ArgumentNullException();
             }
 
             var elements = source.Where(predicate);
@@ -72,6 +69,17 @@ namespace Assignment8_LINQ_Ext_
 
             var elements = source.ToDictionary(keySelector);
             return elements;
+        }
+
+        static int MyCount<T>(this IEnumerable<T> sequence)
+        {
+            int count = 0;
+            foreach(var item in sequence)
+            {
+                count++;
+            }
+
+            return 1;
         }
     }
 }
