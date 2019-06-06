@@ -16,9 +16,7 @@ namespace Server
             Thread tr1 = new Thread(TcpProt);
             Thread tr2 = new Thread(UdpProt);
             tr1.Start();
-            tr2.Start();
-            
-
+            tr2.Start();        
         }
 
         /// <summary>
