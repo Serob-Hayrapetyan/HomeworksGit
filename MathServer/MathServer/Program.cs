@@ -9,7 +9,7 @@ namespace MathServer
 
         static void Main(string[] args)
         {
-            MathService ms = new MathService();
+            MathService ms = new MathService();      
 
             //creating 2 threads
             TCP tcppr = new TCP();
