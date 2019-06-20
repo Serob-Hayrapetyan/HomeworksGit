@@ -35,14 +35,14 @@ namespace MathServer
 
                     string tiv1 = null;
                     string tiv2 = null;
-                    int indexOfOperator = 0;
+                    string operator1 = null;
 
-                    Drop(message, ref indexOfOperator, ref tiv1, ref tiv2);
+                    Drop(message, ref operator1, ref tiv1, ref tiv2);
 
                     ms.num1 = Convert.ToDouble(tiv1);
                     ms.num2 = Convert.ToDouble(tiv2);
 
-                    string result = Convert.ToString(ms.PerformOperation(message[indexOfOperator]));                 
+                    string result = Convert.ToString(ms.PerformOperation(Convert.ToChar(operator1)));                 
 
                     var sendBytes = Encoding.ASCII.GetBytes(result);
                     clientsend.Send(sendBytes, sendBytes.Length);
@@ -65,29 +65,17 @@ namespace MathServer
         /// Getting numbers and the operator
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="indexOfOperator"></param>
+        /// <param name="operator1"></param>
         /// <param name="tiv1"></param>
         /// <param name="tiv2"></param>
-        private void Drop(string message,ref int indexOfOperator,ref string tiv1,ref string tiv2)
+        private void Drop(string message, ref string operator1, ref string tiv1, ref string tiv2)
         {
             if (message != String.Empty)
             {
-                for (int i = 0; i < message.Length; i++)
-                {
-                    if (message[i] == ' ')
-                    {
-                        indexOfOperator = i + 1;
-                        for (int k = 0; k < i; k++)
-                        {
-                            tiv1 = tiv1 + message[k];
-                        }
-                        for (int k = i + 3; k < message.Length; k++)
-                        {
-                            tiv2 = tiv2 + message[k];
-                        }
-                        return;
-                    }
-                }
+                string[] result = message.Split(' ');
+                tiv1 = result[0];
+                tiv2 = result[2];
+                operator1 = result[1];
             }
         }
     }
